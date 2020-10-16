@@ -11,3 +11,21 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.headers {
+  height: 15%;
+  width: 100%;
+  color: red;
+  background-color: yellow
+  
+}
+
+.mainlist {
+  height: 70%;
+  width: 100%;
+}
+
+.footers {
+  height: 15%;
+  width: 100%;
+}

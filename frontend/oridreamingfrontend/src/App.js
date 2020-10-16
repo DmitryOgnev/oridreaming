@@ -1,11 +1,33 @@
 import React from 'react';
-import './App.css';
+import './index.css';
+import 'bootstrap/dist/css/bootstrap.min.css'
+import NaviBar from './Components/Navigator'
+import Footer from './Components/Footer'
+
+import Home from './Pages/Home';
+import { Users } from './Pages/Users';
+import { About } from './Pages/About';
+import { Modelpage } from './Pages/Modelpage';
+import { BrowserRouter as Router, Switch, Route} from 'react-router-dom'
+
+
+
+
 
 function App() {
   return (
-    <div className="App">
-      <p>Initial line</p>
-    </div>
+    <>
+    <Router>
+    <NaviBar/>
+    <Switch>
+      <Route exact path="/" component={Home} />
+      <Route path="/users" component={Users} />
+      <Route path="/about" component={About} />
+      <Route path="/modelpage" component={Modelpage} />
+    </Switch>
+    </Router>
+    <Footer />
+    </>
   );
 }
 
