@@ -5,7 +5,6 @@ import Clean from '../Picture/Clean.jpg'
 import Modelitem from '../Components/Modelitem'
 
 
-
 export default function Home() {
 
     return (
@@ -24,12 +23,10 @@ export default function Home() {
                             </Card.Text>
                             <Button variant="primary">Learn more</Button>
                         </Card.Body>
-                    </Card>
-                    
+                    </Card>                
                 </Col>
             </Row>
         </Container>
-
 
     </>
     )
@@ -38,7 +35,7 @@ export default function Home() {
             starflower: {name: "Starflower", shortName: "starflower", numberOfSteps: 21, difficulty: "Medium", groups:[["Plants", "Stars"], "Flowers"]},
             butterfly_papilio: {name: "Butterfly: Papilio", shortName: "butterfly_papilio", numberOfSteps: 18, difficulty: "Medium", groups:["Animals", "Insectes", "Butterflies"]}    
         } 
-        
+
        return (Object.values(modelitems).map((modelitem) => {
            return <Modelitem modelitem={modelitem} />
                 })

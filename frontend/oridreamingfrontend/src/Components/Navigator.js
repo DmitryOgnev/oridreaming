@@ -48,9 +48,7 @@ const handleShow =() => setshow(true)
                 <Form.Group controlId="fromBasicCheckbox">
                     <Form.Label>Password</Form.Label>
                     <Form.Check type="checkbox" label="Remeber me"/>
-
                 </Form.Group>
-
             </Form>
         </Modal.Body>
     </Modal>

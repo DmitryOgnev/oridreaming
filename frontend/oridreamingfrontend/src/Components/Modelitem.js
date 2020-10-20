@@ -7,7 +7,6 @@ const images = require.context('../resources/Models/', true);
 
 
 export default function Modelitem(props) {
-      console.log(props.modelitem);
         return (        
                 <Col>
                     <Card style={{width: '16rem'}}>
@@ -17,14 +16,12 @@ export default function Modelitem(props) {
                             <Card.Text>
                             Number of steps: {props.modelitem.numberOfSteps}. Difficulty: {props.modelitem.difficulty}
                             </Card.Text>
-                            <Link to="/modelpage">
-                            <Button variant="primary">Steps</Button>
+                            <Link to={"/modelpage/" + props.modelitem.shortName + "?shortName=" + props.modelitem.shortName +"&numberOfSteps=" + props.modelitem.numberOfSteps + "&step=" + "0"}>
+                                <Button variant="primary">Steps</Button>
                             </Link>
                         </Card.Body>
                     </Card>
                     
                 </Col>
         )
-
 }
-

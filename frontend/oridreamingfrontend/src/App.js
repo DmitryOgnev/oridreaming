@@ -23,7 +23,9 @@ function App() {
       <Route exact path="/" component={Home} />
       <Route path="/users" component={Users} />
       <Route path="/about" component={About} />
-      <Route path="/modelpage" component={Modelpage} />
+     {/* <Route path="/modelpage/:modelitem/:steps/step" component={Modelpage} /> */}
+     {/* <Route path="/modelpage/:modelitem/:step" render={(props) => <Modelpage {...props} />} />*/}
+     <Route path="/modelpage" render={(props) => <Modelpage {...props} />} />
     </Switch>
     </Router>
     <Footer />
