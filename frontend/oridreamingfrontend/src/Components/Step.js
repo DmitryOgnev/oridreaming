@@ -6,7 +6,11 @@ const images = require.context('../resources/Models/', true);
 
 const styles = {
     li: {
-        padding: '0.6rem'
+        margin: "auto"
+    },
+    Nav: {
+        marginLeft: "auto",
+        marginRight: "auto"
     }
 }
 
@@ -14,16 +18,18 @@ export default function Step(props) {
 
     return (
         <>
-        <Container  style={{width: "75%", padding: "auto"}}> 
-            <Navbar collapseOnSelect expand="sm" bg="white" variant="dark">
-                <Nav style={{margin: "auto"}} className="mr-auto">
-                    <Nav.Link><Link to={composeURL(props.shortName, parseInt(props.step)-1, props.numberOfSteps)}><h1>&larr;</h1></Link></Nav.Link>
+        <Container style={{width: "80%", padding: "auto"}}> 
+        <span style={{margin: "auto"}}>Step: {props.step}</span>   
+        {/*}    
+            <Navbar collapseOnSelect expand="lg" bg="white" variant="dark">
+                <Nav style={styles.Nav} className="mr-auto">
+                    <Link to={composeURL(props.shortName, parseInt(props.step)-1, props.numberOfSteps)}><h1>&larr;</h1></Link>
                 </Nav>
                     <span style={{ margin: "auto"}}><h5>Step {props.step}</h5></span> 
-                <Nav style={{margin: "auto"}} className="mr-auto">
-                    <Nav.Link><Link to={composeURL(props.shortName, parseInt(props.step)+1, props.numberOfSteps)}><h1>&rarr;</h1></Link></Nav.Link>
+                <Nav style={styles.Nav} className="mr-auto">
+                    <Link to={composeURL(props.shortName, parseInt(props.step)+1, props.numberOfSteps)}><h1>&rarr;</h1></Link>
                 </Nav>
-            </Navbar>
+            </Navbar> */}
             <Card>
                 <Card.Img variant="top" src={composeDirectoryToAnAnimation(props.shortName, props.step)}/>
             </Card> 
@@ -67,28 +73,21 @@ function makeStepList(shortName, step, numberOfSteps){
   let rightArrowClassName = arrowsClassName + (parseInt(step)>=parseInt(numberOfSteps) ? " disabled" : "");
 
   return (
-      <nav style={{margin: "auto"}}>
+      <nav style={{margin: "1rem"}}>
           <ul style={{margin: "auto"}} className="pagination pagination-sm justify-content-center">
-                <li className={composeClNameLinkIsDis("left", "page-item", step, numberOfSteps)} style={styles.li}><Link className="page-link" to={composeURL(shortName, parseInt(step)-10, numberOfSteps)}>&lt;&lt;</Link></li>
-                <li className={composeClNameLinkIsDis("left", "page-item", step, numberOfSteps)} style={styles.li}><Link className="page-link" to={composeURL(shortName, parseInt(step)-1, numberOfSteps)}>&larr;</Link></li>
+                <li className={composeClNameLinkIsDis("left", "page-item", step, numberOfSteps)} style={styles.li}><Link className="page-link" to={composeURL(shortName, parseInt(step)-5, numberOfSteps)}><strong>&lt;&lt;</strong></Link></li>
+                <li className={composeClNameLinkIsDis("left", "page-item", step, numberOfSteps)} style={styles.li}><Link className="page-link" to={composeURL(shortName, parseInt(step)-1, numberOfSteps)}><strong>&lt;</strong></Link></li>
                 {iterateIt(shortName, step, numberOfSteps)}
-                <li className={composeClNameLinkIsDis("right", "page-item", step, numberOfSteps)} style={styles.li}><Link className="page-link" to={composeURL(shortName, parseInt(step)+1, numberOfSteps)}>&rarr;</Link></li>
-                <li className={composeClNameLinkIsDis("right", "page-item", step, numberOfSteps)} style={styles.li}><Link className="page-link" to={composeURL(shortName, parseInt(step)+10, numberOfSteps)}>&gt;&gt;</Link></li>
+                <li className={composeClNameLinkIsDis("right", "page-item", step, numberOfSteps)} style={styles.li}><Link className="page-link" to={composeURL(shortName, parseInt(step)+1, numberOfSteps)}><strong>&gt;</strong></Link></li>
+                <li className={composeClNameLinkIsDis("right", "page-item", step, numberOfSteps)} style={styles.li}><Link className="page-link" to={composeURL(shortName, parseInt(step)+5, numberOfSteps)}><strong>&gt;&gt;</strong></Link></li>
           </ul>
       </nav>
-
   )   
-
 }
 
 function iterateIt(shortName, step, numberOfSteps){
     let arrowsClassName = "page-item"
-
-    let navStepNumbers = /* []; */ getCurrentPaginationBlock(numberOfSteps, step);
-   /*     for(let i=0; i<=numberOfSteps; i++) {
-        navStepNumbers[i] = i;
-    } */
-
+    let navStepNumbers = getCurrentPaginationBlock(numberOfSteps, step);
     let listItems = navStepNumbers.map((el) => {return (<li className={isLinkActiveClassName(el, step)} style={styles.li}><Link className="page-link" to={getUriWithParams(shortName, el, numberOfSteps)}>{el}</Link></li>)});
         console.log(listItems)
     return listItems;
@@ -100,17 +99,17 @@ function isLinkActiveClassName(el, step){
 }
 
 function getCurrentPaginationBlock(numberOfSteps, step){
-    const amountOfLinksInBlock = 10;
+    const amountOfLinksInBlock = 5;
     let initElement;
 
-    if(parseInt(step) < 10) {
+    if(parseInt(step) < amountOfLinksInBlock) {
         initElement = 0;
     } else {
-        initElement = parseInt(parseInt(step) / 10) * 10;
+        initElement = parseInt(parseInt(step) / amountOfLinksInBlock) * amountOfLinksInBlock;
     }
 
     let navStepNumbers = [];
-        for(let i = initElement; (i<=(initElement+9) && i<=numberOfSteps); i++) {
+        for(let i = initElement; (i<=(initElement+amountOfLinksInBlock - 1) && i<=numberOfSteps); i++) {
          navStepNumbers[i] = i;
     }
 

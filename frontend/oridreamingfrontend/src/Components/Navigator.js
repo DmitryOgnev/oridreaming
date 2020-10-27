@@ -12,19 +12,14 @@ const handleShow =() => setshow(true)
 
     return (
     <>
-    <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+    <Navbar collapseOnSelect expand="sm" bg="dark" variant="dark">
         <Container>
         <Navbar.Brand>OriDreaming</Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav"/>
         <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="mr-auto">
                 <Nav.Link><Link to="/">Home</Link></Nav.Link>
-                <Nav.Link><Link to="/users">Users</Link></Nav.Link>
                 <Nav.Link><Link to="/about">About</Link></Nav.Link>
-            </Nav>
-            <Nav>
-                <Button varient="primary" className="mr-2" onClick={handleShow}>Log In</Button>
-                <Button varient="primary" onClick={handleShow}>Sign out</Button>
             </Nav>
         </Navbar.Collapse>
         </Container>
