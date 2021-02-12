@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Button } from 'react-bootstrap';
 import queryString from 'query-string';
 import axios from 'axios';
+import StudioPanel from './StudioPanel'
 
 
 class StudioComponent extends Component {
@@ -11,6 +12,7 @@ class StudioComponent extends Component {
             shortName: props.shortName,
             welcomeMessage: '',
             allocaatedFragments: {},
+            allocaatedFragmentsUI: {},
             readyGroupEls: []
 
          }
@@ -23,6 +25,7 @@ class StudioComponent extends Component {
          this.lookUpGroup = this.lookUpGroup.bind(this);
          this.lookUpFragment = this.lookUpFragment.bind(this);
          this.deleteEmptyPoprsInAllocaatedFragments = this.deleteEmptyPoprsInAllocaatedFragments.bind(this);
+         this.getUIparamsTemplate = this.getUIparamsTemplate.bind(this);
     }
 
 
@@ -43,7 +46,7 @@ class StudioComponent extends Component {
 
 getModel() {
     this.sendRequest()
-    .then(response => this.handleSuccessfulresponse(response))
+    .then(response => {this.handleSuccessfulresponse(response)})
     .catch(error => this.handleErrorResponse(error));
    
 }    
@@ -54,23 +57,22 @@ handleSuccessfulresponse(response) {
     this.allocateFragmentsByGroups();
     this.deleteEmptyPoprsInAllocaatedFragments();
 
-    let studioEls = Object.keys(this.state.allocaatedFragments).map((el, i) => { return (<div>{el}</div>) })
+ //   let studioEls = Object.keys(this.state.allocaatedFragments).map((el, i) => { return (<div>{el}</div>) })
 
-  /*  for(let prop in this.state.allocaatedFragments) {
-        console.log(this.state.allocaatedFragments[prop])
-    }  
+  /*  for(let configProperty in this.state.allocaatedFragments) {
+       console.log(this.state.allocaatedFragments[configProperty]);
+    } */
 
-    for(let prop in studioEls) {
-        console.log(prop);
-    }
+  //  let studioEls = Object.keys(this.state.allocaatedFragments).map((el, i) => { return (<StudioPanel group={el} />) })
+  let studioEls = <StudioPanel groups={this.state.allocaatedFragments} groupsUI={this.state.allocaatedFragmentsUI} json={this.state.config} />
 
-    */
+
    this.setState({readyGroupEls : studioEls})
-   console.log(studioEls);
+  // console.log(studioEls);
 }
 
 sendRequest() {
-    return axios.get('http://localhost:8080/getConfig/' + this.state.shortName);
+    return axios.get('http://localhost:8080/getTemplate/' + this.state.shortName);
 }
 
 
@@ -87,7 +89,10 @@ lookUpGroup(groupName) {
 lookUpFragment(page, groupName) {
     for(let configProperty in page.fragments) {
         if(configProperty.includes(groupName)) {
-            this.state.allocaatedFragments[groupName].push(page.fragments[configProperty]);
+            let currentObj = {};
+            currentObj[configProperty] = page.fragments[configProperty];
+            this.state.allocaatedFragments[groupName].push(currentObj);
+            this.state.allocaatedFragmentsUI[groupName] = this.getUIparamsTemplate(groupName);
         }
     }
 }
@@ -98,6 +103,19 @@ deleteEmptyPoprsInAllocaatedFragments() {
             delete this.state.allocaatedFragments[configProperty];
         }    
     }    
+}
+
+
+getUIparamsTemplate(groupName) {
+ return {
+     groupName: groupName,
+     defaultUrlImageCheckbox: true,
+     elementOfFragAngle: 0,
+     defaultElementOfFragAngle: true,
+     zoom: 0,
+     defaultZoom: true,
+
+ }
 }
 
 resetAndGetAllocatedFragmets() {

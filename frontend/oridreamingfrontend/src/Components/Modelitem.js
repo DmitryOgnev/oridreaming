@@ -10,7 +10,7 @@ export default function Modelitem(props) {
         return (        
                 <Col>
                     <Card style={{width: '16rem'}}>
-                        <Card.Img variant="top" src={images('./' + props.modelitem.shortName +'/genpicture/genpicture.jpg')}/>
+                     <Card.Img variant="top" src={require('../resources/Models/' + props.modelitem.shortName +'/genpicture/genpicture.jpg')?.default}/>
                         <Card.Body>
                             <Card.Title>{props.modelitem.name}</Card.Title>
                             <Card.Text>
@@ -19,9 +19,13 @@ export default function Modelitem(props) {
                             <Link to={"/modelpage/" + props.modelitem.shortName + "?shortName=" + props.modelitem.shortName +"&numberOfSteps=" + props.modelitem.numberOfSteps + "&step=" + "0"}>
                                 <Button variant="primary">Steps</Button>
                             </Link>
+                            {" "}
+                            <Link to={"/studio" + "?shortName=" + props.modelitem.shortName}>
+                                <Button variant="success">Studio</Button>
+                            </Link>
                         </Card.Body>
                     </Card>
                     
                 </Col>
         )
-}
+}//npm audit fix --force

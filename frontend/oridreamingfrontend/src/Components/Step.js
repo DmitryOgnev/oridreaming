@@ -31,7 +31,7 @@ export default function Step(props) {
                 </Nav>
             </Navbar> */}
             <Card>
-                <Card.Img variant="top" src={composeDirectoryToAnAnimation(props.shortName, props.step)}/>
+                <Card.Img variant="top" src={composeDirectoryToAnAnimation(props.shortName, props.step)?.default}/>
             </Card> 
          <Container>{makeStepList(props.shortName, props.step, props.numberOfSteps)}</Container>    
         </Container> 
