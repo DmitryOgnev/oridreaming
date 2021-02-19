@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { MDBCard, MDBCardTitle, MDBCardText, MDBContainer } from "mdbreact";
 import { Col, Container, Row, Button} from 'react-bootstrap';
 
+// https://www.youtube.com/watch?v=o2nmgbZaGMw   preview image before upload
+// https://www.youtube.com/watch?v=dkaKSTyloMw   some infor about checking 
+
 class GroupUIComp extends Component {
 
     constructor(props) {
@@ -11,6 +14,8 @@ class GroupUIComp extends Component {
         this.getPanel = this.getPanel.bind(this);
         this.updateStateForUI = this.updateStateForUI.bind(this);
         this.getDefaultPanel = this.getDefaultPanel.bind(this);
+        this.handleURLCHange = this.handleURLCHange.bind(this);
+        this.handleElemAngleCHange = this.handleElemAngleCHange.bind(this);
     }
 
     render() {
@@ -39,7 +44,7 @@ class GroupUIComp extends Component {
                    </div> 
                       <div style={{width: "auto", margin: "auto", padding: "auto"}}>
                         <label> 
-                          <input type="checkbox" id="defaultURL" name="defaultChB" defaultChecked={this.state.groupsUI[fragmentGroupUI.groupName].defaultUrlImageCheckbox} onChange={ evn => (this.updateStateForUI(fragmentGroupUI.groupName, "defaultUrlImageCheckbox", !(this.state.groupsUI[fragmentGroupUI.groupName].defaultUrlImageCheckbox)))} /> Use default image <br/>
+                          <input type="checkbox" name="defaultChB" defaultChecked={this.state.groupsUI[fragmentGroupUI.groupName].defaultUrlImageCheckbox} onChange={ evn => (this.updateStateForUI(fragmentGroupUI.groupName, "defaultUrlImageCheckbox", !(this.state.groupsUI[fragmentGroupUI.groupName].defaultUrlImageCheckbox)))} /> Use default image <br/>
                            Image URL: <input type="text" name="name"  disabled={this.state.groupsUI[fragmentGroupUI.groupName].defaultUrlImageCheckbox} onChange={(event) => (fragmentGroupUI.imageURL = event.target.value) }/>
                          </label>
                        </div>
@@ -76,22 +81,36 @@ class GroupUIComp extends Component {
     
                   <Col>
                     <div style={{width: "auto", margin: "auto", padding: "auto",  margin: "5%"}}>
-                      <img src={this.state.UIdefaultObj.imageURL} style={{maxWidth: "40%", maxHeight: "100%",  margin: "auto"}}/>
+                      <img  id="defaultUrlImg" src={this.state.UIdefaultObj.imageURL} style={{maxWidth: "40%", maxHeight: "100%",  margin: "auto", transform: "rotate(0deg)"}}/>
+                    </div> 
+                    <div>
+                        <strong>Default Image URL: </strong>
                     </div> 
                     <div style={{width: "auto",  margin: "auto", padding: "auto"}}>
-                      <label><strong>Default Image URL: </strong><input type="text" name="defaultName" onChange={(event) => (this.state.UIdefaultObj.imageURL = event.target.value) } /> </label> 
-                    </div>
-                  </Col>   
-                  <div style={{width: "auto",  margin: "auto", padding: "auto"}}>
+                      <label><input type="text" name="defaultName" onChange={(event) => ( this.handleURLCHange(event) ) } /> </label> 
+                    </div> 
+                  </Col> 
+                  <Col style={{margin: "auto", padding: "auto"}}>
+                     <div>
+                        <strong>Default Angle: </strong>
+                    </div>  
+                    <div style={{width: "auto",  margin: "auto", padding: "auto"}}>
                       <label> 
-                        <strong>Default Angle: </strong><input type="range" min="0" max="360" defaultValue="0" onChange={(event) => function(event){(this.state.UIdefaultObj.elementOfFragAngle = event.target.value)} } ></input>
+                         {/* <input type="range" min="0" max="360" defaultValue="0" onChange={(event) => function(event){(this.state.UIdefaultObj.elementOfFragAngle = event.target.value)} } ></input> */}
+                        <input type="range" min="0" max="360" defaultValue="0" onChange={(event) => (this.handleElemAngleCHange(event))} ></input>
                       </label> 
-                  </div>
-                  <div style={{width: "auto",  margin: "auto", padding: "auto"}}>
-                    <label> 
-                       <strong>Default Zoom: </strong><input type="range" min="1" max="300" defaultValue="100"></input>
-                    </label>
-                  </div>
+                    </div>
+                  </Col> 
+                  <Col style={{margin: "auto", padding: "auto"}}> 
+                     <div>
+                        <strong>Default Zoom: </strong>
+                    </div>  
+                    <div style={{width: "auto",  margin: "auto", padding: "auto"}}>
+                      <label> 
+                        <input type="range" min="1" max="300" defaultValue="100"></input>
+                      </label>
+                    </div>
+                  </Col> 
                   </Row>
                   </Container>
                </MDBCard> 
@@ -102,11 +121,23 @@ class GroupUIComp extends Component {
 
 
 
-
     updateStateForUI(groupName, property, value) {
-          let tempObj = this.state.groupsUI
-          tempObj[groupName][property] = value;
-          this.setState({ groupsUI : tempObj}); 
+      let tempObj = this.state.groupsUI
+      tempObj[groupName][property] = value;
+      this.setState({ groupsUI : tempObj}); 
+    }
+
+    handleURLCHange(event) {
+      this.state.UIdefaultObj.imageURL = event.target.value;  
+      document.getElementById("defaultUrlImg").src = this.state.UIdefaultObj.imageURL;  
+    }
+
+    // transform: "rotate(0deg)"
+
+    handleElemAngleCHange(event) {
+      this.state.UIdefaultObj.elementOfFragAngle = event.target.value;  
+      let transformAngleValue = "rotate(" + this.state.UIdefaultObj.elementOfFragAngle + "deg)";
+      document.getElementById("defaultUrlImg").style.transform = transformAngleValue;  
     }
 
 }

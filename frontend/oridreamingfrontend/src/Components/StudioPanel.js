@@ -79,9 +79,7 @@ class StudioPanel extends Component {
 
 // ---- Handle URL
 populateDefaultUrl(url) {
- // for(const group in this.state.groups) {
- //   this.state.groups[group].forEach((frag, index) => (Object.values(this.state.groups[group][index])[0]["imageUrl"] = url) );
- // }                    
+                 
 }
 /* 
   updateStateForUI(groupName, property, value) {

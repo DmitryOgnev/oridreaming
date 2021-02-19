@@ -13,9 +13,10 @@ class StudioComponent extends Component {
             welcomeMessage: '',
             allocaatedFragments: {},
             allocaatedFragmentsUI: {},
-            readyGroupEls: []
-
+            readyGroupEls: [],
+            UIdefaultObj : {imageURL: '', elementOfFragAngle: 0, zoom: 100}
          }
+
          this.getModel = this.getModel.bind(this);
          this.sendRequest = this.sendRequest.bind(this);
          this.handleSuccessfulresponse = this.handleSuccessfulresponse.bind(this);
@@ -64,7 +65,7 @@ handleSuccessfulresponse(response) {
     } */
 
   //  let studioEls = Object.keys(this.state.allocaatedFragments).map((el, i) => { return (<StudioPanel group={el} />) })
-  let studioEls = <StudioPanel groups={this.state.allocaatedFragments} groupsUI={this.state.allocaatedFragmentsUI} json={this.state.config} />
+  let studioEls = <StudioPanel groups={this.state.allocaatedFragments} groupsUI={this.state.allocaatedFragmentsUI} UIdefaultObj ={this.state.UIdefaultObj} json={this.state.config} />
 
 
    this.setState({readyGroupEls : studioEls})
@@ -109,14 +110,16 @@ deleteEmptyPoprsInAllocaatedFragments() {
 getUIparamsTemplate(groupName) {
  return {
      groupName: groupName,
+     imageURL: '',
      defaultUrlImageCheckbox: true,
      elementOfFragAngle: 0,
      defaultElementOfFragAngle: true,
-     zoom: 0,
+     zoom: 100,
      defaultZoom: true,
 
  }
 }
+
 
 resetAndGetAllocatedFragmets() {
    let allocaatedFragments = {
